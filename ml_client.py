@@ -140,6 +140,7 @@ def get_product(item_id: str) -> dict:
 STORE_INFO = """Electropartes Pilar - más de 25 años en el rubro de repuestos de electricidad del automotor.
 Dirección: 25 de Mayo 660, Local 6
 Contacto: 11-5162-3607
+Horario de atención: Lunes a viernes de 8.30 a 12.30hs y de 14.30 a 18hs. Sábados de 8.30 a 13hs.
 
 Trabajamos con stock permanente y atención personalizada para particulares y talleres."""
 
