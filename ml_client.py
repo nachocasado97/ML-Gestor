@@ -113,6 +113,25 @@ def get_product(item_id: str) -> dict:
     return resp.json()
 
 
+STORE_INFO = """Por que elegirnos?
+Electropartes Pilar - mas de 25 anos en el rubro de repuestos de electricidad del automotor.
+Direccion: 25 de Mayo 660, Local 6
+Contacto: 11-5162-3607
+
+Trabajamos con stock permanente y atencion personalizada para particulares y talleres."""
+
+
+def set_description(item_id: str, product_text: str) -> dict:
+    """Sube la descripcion de una publicacion: el texto del producto + los datos fijos del negocio."""
+    full_text = f"{product_text.strip()}\n\n{STORE_INFO}"
+    resp = _request("POST", f"/items/{item_id}/description", json={"plain_text": full_text})
+    if not resp.ok:
+        resp = _request("PUT", f"/items/{item_id}/description", json={"plain_text": full_text})
+    if not resp.ok:
+        raise RuntimeError(f"Error subiendo descripcion de {item_id} ({resp.status_code}): {resp.text}")
+    return resp.json()
+
+
 if __name__ == "__main__":
     me = get_me()
     print(f"Conectado como: {me['nickname']} ({me['email']}) - site {me['site_id']}")

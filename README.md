@@ -40,3 +40,12 @@ create_product({
     "attributes": [...],
 })
 ```
+
+Toda publicación nueva lleva descripción: texto propio del producto + los
+datos fijos del negocio (`STORE_INFO` en `ml_client.py`).
+
+```python
+from ml_client import set_description
+
+set_description("MLA...", "Texto especifico de este producto...")
+```
