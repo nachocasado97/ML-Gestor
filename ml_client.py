@@ -137,12 +137,11 @@ def get_product(item_id: str) -> dict:
     return resp.json()
 
 
-STORE_INFO = """Por que elegirnos?
-Electropartes Pilar - mas de 25 anos en el rubro de repuestos de electricidad del automotor.
-Direccion: 25 de Mayo 660, Local 6
+STORE_INFO = """Electropartes Pilar - más de 25 años en el rubro de repuestos de electricidad del automotor.
+Dirección: 25 de Mayo 660, Local 6
 Contacto: 11-5162-3607
 
-Trabajamos con stock permanente y atencion personalizada para particulares y talleres."""
+Trabajamos con stock permanente y atención personalizada para particulares y talleres."""
 
 
 def set_description(item_id: str, product_text: str) -> dict:
