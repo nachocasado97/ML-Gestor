@@ -49,3 +49,15 @@ from ml_client import set_description
 
 set_description("MLA...", "Texto especifico de este producto...")
 ```
+
+Toda publicación nueva lleva, como última foto, el logo de la tienda
+(`STORE_LOGO_PICTURE_ID` en `ml_client.py`, ya subido a ML). Para subir
+fotos nuevas de producto y armar la lista completa:
+
+```python
+from ml_client import upload_picture, with_store_logo, create_product
+
+pic_id = upload_picture("/ruta/a/foto_producto.jpg", "image/jpeg")
+item["pictures"] = with_store_logo([pic_id])
+create_product(item)
+```

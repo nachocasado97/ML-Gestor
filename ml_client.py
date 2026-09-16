@@ -92,6 +92,30 @@ def get_me() -> dict:
     return resp.json()
 
 
+STORE_LOGO_PICTURE_ID = "616246-MLA116258732008_092026"
+
+
+def upload_picture(file_path: str, content_type: str) -> str:
+    """Sube una imagen a ML (en su resolucion original) y devuelve su picture id."""
+    token = get_access_token()
+    with open(file_path, "rb") as f:
+        files = {"file": (file_path.split("/")[-1], f, content_type)}
+        resp = requests.post(
+            f"{API_BASE}/pictures/items/upload",
+            headers={"Authorization": f"Bearer {token}"},
+            files=files,
+            timeout=60,
+        )
+    if not resp.ok:
+        raise RuntimeError(f"Error subiendo imagen {file_path} ({resp.status_code}): {resp.text}")
+    return resp.json()["id"]
+
+
+def with_store_logo(picture_ids: list) -> list:
+    """Arma la lista de pictures para un item agregando el logo de la tienda al final."""
+    return [{"id": pid} for pid in list(picture_ids) + [STORE_LOGO_PICTURE_ID]]
+
+
 def create_product(item: dict) -> dict:
     """Publica un producto nuevo. `item` es el payload tal como lo espera /items."""
     resp = _request("POST", "/items", json=item)
