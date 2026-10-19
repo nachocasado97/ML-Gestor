@@ -18,7 +18,10 @@ OAUTH_URL = f"{API_BASE}/oauth/token"
 
 
 def _read_env() -> dict:
-    env = {}
+    # Semilla desde variables de entorno persistentes (sobreviven a un reset
+    # del contenedor, a diferencia de este .env). El archivo, si existe,
+    # tiene siempre prioridad porque ahi se guardan los tokens ya rotados.
+    env = {key: value for key, value in os.environ.items() if key.startswith("ML_")}
     if ENV_PATH.exists():
         for line in ENV_PATH.read_text().splitlines():
             line = line.strip()
