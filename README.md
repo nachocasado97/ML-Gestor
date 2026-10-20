@@ -61,3 +61,9 @@ pic_id = upload_picture("/ruta/a/foto_producto.jpg", "image/jpeg")
 item["pictures"] = with_store_logo([pic_id])
 create_product(item)
 ```
+
+## Pagos de Mercado Pago → Google Sheets
+
+`mercadopago_sheets/` tiene un Google Apps Script que copia a una planilla
+cada pago cobrado con los links de pago de Mercado Pago. Ver
+[`mercadopago_sheets/README.md`](mercadopago_sheets/README.md).
