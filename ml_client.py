@@ -142,7 +142,7 @@ def get_product(item_id: str) -> dict:
 
 STORE_INFO = """Electropartes Pilar - más de 25 años en el rubro de repuestos de electricidad del automotor.
 
-Trabajamos con stock permanente y atención personalizada para particulares y talleres."""
+Trabajamos con stock permanente para particulares y talleres."""
 
 
 def set_description(item_id: str, product_text: str) -> dict:
