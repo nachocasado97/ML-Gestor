@@ -25,8 +25,9 @@ const SHEET_NAME = 'Pagos';
 const MP_API = 'https://api.mercadopago.com';
 const PAGE_SIZE = 50;
 // Cada corrida vuelve a mirar este margen hacia atras: la API indexa los
-// pagos con algo de demora y asi no se escapa ninguno entre corridas.
-const OVERLAP_MINUTES = 30;
+// pagos con demora y una corrida puede fallar, asi que con un margen amplio
+// un pago que se salteo se recupera solo en las corridas siguientes.
+const OVERLAP_MINUTES = 24 * 60;
 const SYNC_EVERY_MINUTES = 10;
 
 const COLUMNS = [

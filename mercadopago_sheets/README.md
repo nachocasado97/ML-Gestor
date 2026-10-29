@@ -22,7 +22,9 @@ Mercado Pago por los links de pago, y mantiene actualizado su estado
 - **Sin servidor:** todo corre en Google Apps Script, pegado a la planilla.
 - **Sin duplicados:** cada pago se identifica por su ID; si cambia (por
   ejemplo, se devuelve) se reescribe su fila.
-- **No se pierde nada:** cada corrida vuelve a revisar los últimos 30 minutos.
+- **No se pierde nada:** cada corrida vuelve a revisar las últimas 24 horas,
+  así un pago que se salteó (por demora de MP o una corrida fallida) se
+  recupera solo.
 - **Solo cobros:** se ignoran los pagos que hacés vos y las transferencias.
 
 Columnas: ID pago · Fecha · Fecha aprobación · Estado · Detalle estado ·
@@ -168,6 +170,11 @@ pongas filtros**: se registran todos tus cobros.
 
 Con lo anterior un pago tarda **hasta 10 minutos** en aparecer. Si lo
 querés al instante:
+
+> ⚠️ Mercado Pago solo manda webhooks a una aplicación por los pagos
+> creados con *esa* aplicación. Los links de pago creados desde la app o
+> la web de Mercado Pago no generan aviso, así que para ellos el webhook
+> no sirve y el registro es cada 10 minutos.
 
 **En Apps Script:**
 1. Arriba a la derecha: **Implementar → Nueva implementación**.
