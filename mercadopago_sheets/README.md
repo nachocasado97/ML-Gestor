@@ -9,7 +9,7 @@ Mercado Pago por los links de pago, y mantiene actualizado su estado
 ```
  Cliente paga el link ──► Mercado Pago
                               │
-        cada 10 min           │  GET /v1/payments/search
+        cada 5 min            │  GET /v1/payments/search
   ┌───────────────────────────┤  (pagos creados o modificados
   │  Apps Script (trigger)    │   desde la última corrida)
   │  dentro de la planilla ◄──┘
@@ -22,7 +22,7 @@ Mercado Pago por los links de pago, y mantiene actualizado su estado
 - **Sin servidor:** todo corre en Google Apps Script, pegado a la planilla.
 - **Sin duplicados:** cada pago se identifica por su ID; si cambia (por
   ejemplo, se devuelve) se reescribe su fila.
-- **No se pierde nada:** cada corrida vuelve a revisar las últimas 24 horas,
+- **No se pierde nada:** cada corrida vuelve a revisar las últimas 6 horas,
   así un pago que se salteó (por demora de MP o una corrida fallida) se
   recupera solo.
 - **Solo cobros:** se ignoran los pagos que hacés vos y las transferencias.
@@ -153,9 +153,9 @@ pongas filtros**: se registran todos tus cobros.
 
 1. En Apps Script, barra izquierda, ícono de **reloj ⏰ (Activadores)**.
 2. Tiene que haber **un** activador: función `sincronizar`, evento
-   "Según tiempo", **cada 10 minutos**.
+   "Según tiempo", **cada 5 minutos**.
 3. Para probar con un pago real: pedile a alguien que pague uno de tus links
-   con un monto chico. En menos de 10 minutos aparece en la hoja. Si
+   con un monto chico. En menos de 5 minutos aparece en la hoja. Si
    después le devolvés el dinero desde la app de Mercado Pago, la columna
    **Estado** cambia a `refunded` en la siguiente corrida.
 
@@ -168,13 +168,13 @@ pongas filtros**: se registran todos tus cobros.
 
 ## Opcional — Que el pago aparezca al instante (webhook)
 
-Con lo anterior un pago tarda **hasta 10 minutos** en aparecer. Si lo
+Con lo anterior un pago tarda **hasta 5 minutos** en aparecer. Si lo
 querés al instante:
 
 > ⚠️ Mercado Pago solo manda webhooks a una aplicación por los pagos
 > creados con *esa* aplicación. Los links de pago creados desde la app o
 > la web de Mercado Pago no generan aviso, así que para ellos el webhook
-> no sirve y el registro es cada 10 minutos.
+> no sirve y el registro es cada 5 minutos.
 
 **En Apps Script:**
 1. Arriba a la derecha: **Implementar → Nueva implementación**.
@@ -201,7 +201,7 @@ Notas:
   aparecer en la hoja, y está bien.
 - Es posible que el panel de MP marque algunas notificaciones como
   "fallidas" por cómo responde Google. No pasa nada: la sincronización cada
-  10 minutos sigue andando y cubre cualquier aviso perdido.
+  5 minutos sigue andando y cubre cualquier aviso perdido.
 - Si algún día cambiás el código del script, para que el webhook use la
   versión nueva: **Implementar → Gestionar implementaciones → ✏️ editar →
   Versión: Nueva versión → Implementar**. La URL no cambia.
@@ -243,7 +243,7 @@ izquierda) → clic en la ejecución con error.
 | `respondio 401` | Token mal copiado, de prueba (`TEST-`) o revocado. Copialo de nuevo desde Credenciales de producción y reemplazalo en la propiedad. |
 | `respondio 403` | Las credenciales de producción no están activadas (Parte 1, paso 5). |
 | La hoja "Pagos" está vacía | Si no hubo cobros en los últimos 30 días es normal. Para traer más, poné `DIAS_INICIALES` o ejecutá `sincronizarHistorico`. Revisá también que no tengas filtros puestos. |
-| Falta un pago que sí entró | Esperá 10 minutos. Si sigue sin aparecer, fijate si tenés filtros. Si no, avisá: puede que MP clasifique ese pago distinto y haya que ajustar el filtro del script. |
+| Falta un pago que sí entró | Esperá 5 minutos. Si sigue sin aparecer, fijate si tenés filtros. Si no, avisá: puede que MP clasifique ese pago distinto y haya que ajustar el filtro del script. |
 | Aparecen cobros que no son de los links (ej. QR) | Usá `FILTRO_DESCRIPCION` o `FILTRO_PREFERENCIAS`. |
 | Hay dos activadores `sincronizar` | Borrá uno, o volvé a ejecutar `configurar` (deja uno solo). |
 | Las fechas tienen 3 horas de diferencia | Zona horaria del proyecto mal puesta (Parte 4, paso 2) y también en la planilla: **Archivo → Configuración → Zona horaria**. |

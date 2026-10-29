@@ -27,8 +27,8 @@ const PAGE_SIZE = 50;
 // Cada corrida vuelve a mirar este margen hacia atras: la API indexa los
 // pagos con demora y una corrida puede fallar, asi que con un margen amplio
 // un pago que se salteo se recupera solo en las corridas siguientes.
-const OVERLAP_MINUTES = 24 * 60;
-const SYNC_EVERY_MINUTES = 10;
+const OVERLAP_MINUTES = 6 * 60;
+const SYNC_EVERY_MINUTES = 5;
 
 const COLUMNS = [
   ['ID pago', (p) => String(p.id)],
